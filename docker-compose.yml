@@ -8,7 +8,9 @@ services:
       - "3000:3000"
     working_dir: /app
     command: sh -c 
-      "npm install &&
+      "apt-get update &&
+       apt-get install -y procps &&
+       npm install &&
        npm install -g nest &&
        npm run start:dev"
     depends_on:

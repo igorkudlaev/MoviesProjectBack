@@ -1,8 +1,11 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SequelizeModule } from '@nestjs/sequelize';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { MoviesModule } from './movies/movies.module';
+import { CastModule } from './cast/cast.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -16,8 +19,11 @@ import { AppService } from './app.service';
       models: [],
       autoLoadModels: true,
     }),
+    AuthModule,
+    UsersModule,
+    MoviesModule,
+    CastModule,
+    CommentsModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
