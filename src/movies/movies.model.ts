@@ -1,6 +1,7 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { Cast } from 'src/cast/cast.model';
 import { Comment } from 'src/comments/comments.model';
+import { Trailer } from 'src/trailers/trailers.model';
 
 interface MovieCreationAttrs {
   title: string;
@@ -53,4 +54,7 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
 
   @HasMany(() => Comment)
   comments: Comment[];
+
+  @HasMany(() => Trailer)
+  trailers: Trailer[];
 }

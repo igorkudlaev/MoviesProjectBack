@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Cast } from './cast.model';
-import { CreateTaskDto } from './dto/CreateCastDto';
+import { CreateTaskDto } from './dto/create.cast.dto';
 
 @Injectable()
 export class CastService {

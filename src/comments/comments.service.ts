@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Comment } from './comments.model';
-import { CreateCommentDto } from './dto/create.comment.dto';
+import { CreateComment } from './types/create.comment';
 
 @Injectable()
 export class CommentsService {
@@ -9,7 +9,15 @@ export class CommentsService {
     @InjectModel(Comment) private commentsRepository: typeof Comment,
   ) {}
 
-  async create(createCommentDto: CreateCommentDto): Promise<Comment> {
+  async create(createCommentDto: CreateComment): Promise<Comment> {
     return this.commentsRepository.create(createCommentDto);
+  }
+
+  async findAll(movieId: number): Promise<Comment[]> {
+    return this.commentsRepository.findAll({
+      where: {
+        movieId,
+      },
+    });
   }
 }
