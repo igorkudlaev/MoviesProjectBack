@@ -23,7 +23,6 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
 
   @Column({
     type: DataType.STRING,
-    unique: true,
     allowNull: false,
   })
   title: string;
@@ -32,7 +31,7 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
-  posterUrl: number;
+  posterUrl: string;
 
   @Column({ type: DataType.INTEGER, allowNull: false })
   year: number;

@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Cast } from './cast.model';
-import { CreateTaskDto } from './dto/create.cast.dto';
+import { CreateCastDto } from './dto/create.cast.dto';
 
 @Injectable()
 export class CastService {
   constructor(@InjectModel(Cast) private castRepository: typeof Cast) {}
 
-  async create(createTaskDto: CreateTaskDto) {
-    this.castRepository.bulkCreate(createTaskDto);
+  async create(createCastDto: CreateCastDto[]) {
+    return this.castRepository.bulkCreate(createCastDto);
   }
 
   async findByMovieId(movieId: number) {

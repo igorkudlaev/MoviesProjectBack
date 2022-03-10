@@ -8,6 +8,7 @@ import { CastModule } from './cast/cast.module';
 import { CommentsModule } from './comments/comments.module';
 import { RedisModule } from '@liaoliaots/nestjs-redis';
 import { TrailersModule } from './trailers/trailers.module';
+import { StorageModule } from './storage/storage.module';
 
 @Module({
   imports: [
@@ -34,6 +35,10 @@ import { TrailersModule } from './trailers/trailers.module';
     CastModule,
     CommentsModule,
     TrailersModule,
+    StorageModule.config({
+      keyFilename: process.env.GOOGLE_API_KEY_PATH,
+      bucketName: 'movies-project',
+    }),
   ],
 })
 export class AppModule {}
