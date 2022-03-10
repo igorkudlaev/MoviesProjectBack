@@ -1,7 +1,7 @@
 export class MovieDto {
   id: number;
   title: string;
-  posterUrl: number;
+  posterUrl: string;
   year: number;
   duration: string;
   rating: number;

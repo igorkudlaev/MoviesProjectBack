@@ -6,5 +6,6 @@ import { TrailersService } from './trailers.service';
 @Module({
   imports: [SequelizeModule.forFeature([Trailer])],
   providers: [TrailersService],
+  exports: [TrailersService],
 })
 export class TrailersModule {}

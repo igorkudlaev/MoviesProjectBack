@@ -1,1 +1,4 @@
-export type CreateTaskDto = string[];
+export class CreateCastDto {
+  movieId: number;
+  name: string;
+}
