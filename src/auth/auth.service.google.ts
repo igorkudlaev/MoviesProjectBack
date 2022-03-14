@@ -4,6 +4,7 @@ import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import GoogleTokenDto from './dto/google.token.dto';
 import { TokensDto } from './dto/tokens.dto';
+import PasswordGenerator from './password.generator';
 
 @Injectable()
 export default class AuthServiceGoogle {
@@ -11,6 +12,7 @@ export default class AuthServiceGoogle {
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
+    private passwordGenerator: PasswordGenerator,
   ) {
     this.client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
   }
@@ -26,7 +28,7 @@ export default class AuthServiceGoogle {
     }
     const tokens = this.authService.register({
       username: ticket.getAttributes().payload.email,
-      password: this.authService.generatePassword(),
+      password: this.passwordGenerator.generatePassword(),
     });
     return tokens;
   }
