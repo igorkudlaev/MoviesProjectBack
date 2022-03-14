@@ -9,6 +9,8 @@ import { CreateCommentDto } from './dto/create.comment.dto';
 import { CreateMovieDto } from './dto/create.movie.dto';
 import { FormDataRequest } from 'nestjs-form-data';
 import { MovieInfoDto } from './dto/movie.info.dto';
+import { CastService } from 'src/cast/cast.service';
+import { Cast } from 'src/cast/cast.model';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -16,6 +18,7 @@ export class MoviesController {
   constructor(
     private moviesService: MoviesService,
     private commentsService: CommentsService,
+    private castService: CastService,
   ) {}
 
   @Auth()
@@ -87,5 +90,11 @@ export class MoviesController {
       userId: req.user.id,
       ...createCommentDto,
     });
+  }
+
+  @Auth()
+  @Get('/:id/cast')
+  async getCast(@Param('id') movieId: number): Promise<Cast[]> {
+    return this.castService.findByMovieId(movieId);
   }
 }
