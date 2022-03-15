@@ -11,6 +11,9 @@ import { FormDataRequest } from 'nestjs-form-data';
 import { MovieInfoDto } from './dto/movie.info.dto';
 import { CastService } from 'src/cast/cast.service';
 import { Cast } from 'src/cast/cast.model';
+import { Trailer } from 'src/trailers/trailers.model';
+import { TrailersService } from 'src/trailers/trailers.service';
+import { CreateMovieBody } from './decorators/create.movie.body';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -19,6 +22,7 @@ export class MoviesController {
     private moviesService: MoviesService,
     private commentsService: CommentsService,
     private castService: CastService,
+    private trailersService: TrailersService,
   ) {}
 
   @Auth()
@@ -27,37 +31,7 @@ export class MoviesController {
     return this.moviesService.findAll();
   }
 
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        title: { type: 'string' },
-        year: { type: 'number' },
-        duration: { type: 'string' },
-        rating: { type: 'string' },
-        cast: {
-          type: 'array',
-          items: {
-            properties: {
-              name: { type: 'string' },
-            },
-          },
-        },
-        trailers: {
-          type: 'array',
-          items: {
-            properties: {
-              url: { type: 'string' },
-            },
-          },
-        },
-        poster: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @CreateMovieBody()
   @ApiConsumes('multipart/form-data')
   @Auth()
   @Post()
@@ -96,5 +70,11 @@ export class MoviesController {
   @Get('/:id/cast')
   async getCast(@Param('id') movieId: number): Promise<Cast[]> {
     return this.castService.findByMovieId(movieId);
+  }
+
+  @Auth()
+  @Get('/:id/trailers')
+  async getTrailers(@Param('id') movieId: number): Promise<Trailer[]> {
+    return this.trailersService.findByMovieId(movieId);
   }
 }

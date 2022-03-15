@@ -29,5 +29,11 @@ export class Trailer extends Model<Trailer, TrailerCreationAttrs> {
     type: DataType.STRING,
     allowNull: false,
   })
+  preview: string;
+
+  @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
   url: string;
 }

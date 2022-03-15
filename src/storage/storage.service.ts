@@ -7,14 +7,14 @@ import { uuid } from 'uuidv4';
 
 @Injectable()
 export class StorageService {
-  storage: Storage;
-  bucket: Bucket;
+  private storage: Storage;
+  private bucket: Bucket;
   constructor(@Inject(GCSOptions) config: Config) {
     this.storage = new Storage(config);
     this.bucket = this.storage.bucket(config.bucketName);
   }
 
-  createFileName(filePath: string): string {
+  private createFileName(filePath: string): string {
     const ext = path.extname(filePath);
     const newFileName = `${uuid()}${ext}`;
     return newFileName;

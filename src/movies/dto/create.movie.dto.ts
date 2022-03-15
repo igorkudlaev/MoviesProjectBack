@@ -39,6 +39,5 @@ export class CreateMovieDto {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateTrailerDto)
-  @Transform(({ value }) => JSON.parse(value))
   trailers: CreateTrailerDto[];
 }
