@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  Request,
+} from '@nestjs/common';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { CommentsService } from 'src/comments/comments.service';
 import { MovieDto } from './dto/movie.dto';
@@ -14,6 +24,8 @@ import { Cast } from 'src/cast/cast.model';
 import { Trailer } from 'src/trailers/trailers.model';
 import { TrailersService } from 'src/trailers/trailers.service';
 import { CreateMovieBody } from './decorators/create.movie.body';
+import { CreateTrailerDto } from './dto/create.trailer.dto';
+import { CreateTrailerBody } from './decorators/create.trailer.body';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -47,6 +59,13 @@ export class MoviesController {
   }
 
   @Auth()
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @Delete('/:id')
+  async deleteById(@Param('id') id: number): Promise<number> {
+    return this.moviesService.deleteById(id);
+  }
+
+  @Auth()
   @Get('/:id/comments')
   async getComments(@Param('id') movieId: number): Promise<Comment[]> {
     return this.commentsService.findAll(movieId);
@@ -76,5 +95,16 @@ export class MoviesController {
   @Get('/:id/trailers')
   async getTrailers(@Param('id') movieId: number): Promise<Trailer[]> {
     return this.trailersService.findByMovieId(movieId);
+  }
+
+  @CreateTrailerBody()
+  @Auth()
+  @ApiConsumes('multipart/form-data')
+  @Post('/:id/trailers')
+  async createTrailer(
+    @Param('id') movieId: number,
+    @Body() createTrailerDto: CreateTrailerDto,
+  ): Promise<Trailer[]> {
+    return this.trailersService.bulkCreate([{ ...createTrailerDto, movieId }]);
   }
 }

@@ -63,9 +63,6 @@ export class AuthService {
       );
       const userFromRefresh = this.jwtService.verify<UserDto>(
         tokens.refresh_token,
-        {
-          ignoreExpiration: true,
-        },
       );
       if (userFromAccess.id !== userFromRefresh.id) {
         throw new HttpException(

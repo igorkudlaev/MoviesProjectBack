@@ -1,10 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Catch, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Cast } from 'src/cast/cast.model';
 import { CastService } from 'src/cast/cast.service';
 import { StorageService } from 'src/storage/storage.service';
 import { Trailer } from 'src/trailers/trailers.model';
 import { TrailersService } from 'src/trailers/trailers.service';
+import { HttpExceptionHandler } from 'src/utils/http.exception.handler';
 import { CreateMovieDto } from './dto/create.movie.dto';
 import { MovieDto } from './dto/movie.dto';
 import { MovieInfoDto } from './dto/movie.info.dto';
@@ -24,7 +25,7 @@ export class MoviesService {
   }
 
   async findById(id: number): Promise<MovieDto> {
-    const movie = this.moviesRepository.findByPk(id);
+    const movie = await this.moviesRepository.findByPk(id);
     if (!movie) {
       throw new HttpException('Movie not found', HttpStatus.NOT_FOUND);
     }
@@ -65,5 +66,22 @@ export class MoviesService {
       })),
     );
     return this.fullInfoById(movie.id);
+  }
+
+  async deleteById(movieId: number): Promise<number> {
+    try {
+      const movie = await this.findById(movieId);
+      await this.trailersService.deleteByMovieId(movieId);
+      await this.storageService.deleteFile(movie.posterUrl);
+      return await this.moviesRepository.destroy({
+        cascade: true,
+        where: { id: movieId },
+      });
+    } catch (error) {
+      new HttpExceptionHandler(error).throwIf(
+        HttpStatus.NOT_FOUND,
+        'the movie cannot be deleted because it has not been found',
+      );
+    }
   }
 }
