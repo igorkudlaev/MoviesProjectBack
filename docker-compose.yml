@@ -5,8 +5,10 @@ services:
     volumes:
       - ./:/app
     ports:
-      - "3000:3000"
+      - "${PORT}:${PORT}"
     working_dir: /app
+    env_file:
+      - .env
     command: sh -c 
       "apt-get update &&
        apt-get install -y procps &&
