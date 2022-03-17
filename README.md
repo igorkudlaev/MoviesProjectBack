@@ -1,8 +1,10 @@
 # Movies Project Back
 
-<img src="https://docs.nestjs.kr/assets/logo-small.svg" alt="Nest Logo" width="100"/>
-<img src="https://www.docker.com/sites/default/files/d8/2019-07/vertical-logo-monochromatic.png" alt="Nest Logo" width="100"/>
-<img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png" alt="Nest Logo" width="100"/>
+<div style="display: flex;">
+  <img src="https://docs.nestjs.kr/assets/logo-small.svg" alt="Nest Logo" width="100"/>
+  <img src="https://www.docker.com/sites/default/files/d8/2019-07/vertical-logo-monochromatic.png" alt="Nest Logo" width="100"/>
+  <img src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-webinar-optimizing-for-success-google-business-webinar-13.png" alt="Nest Logo" width="100"/>
+</div>
 
 ## Features
 
