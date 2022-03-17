@@ -6,8 +6,8 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Movie } from 'src/movies/movies.model';
-import { User } from 'src/users/users.model';
+import { Movie } from '../movies/movies.model';
+import { User } from '../users/users.model';
 
 interface CommentCreationAttrs {
   movieId: number;

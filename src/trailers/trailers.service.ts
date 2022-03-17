@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { StorageService } from 'src/storage/storage.service';
-import { HttpExceptionHandler } from 'src/utils/http.exception.handler';
+import { StorageService } from '../storage/storage.service';
+import { HttpExceptionHandler } from '../utils/http.exception.handler';
 import { CreateTrailerDto } from './dto/create.trailer.dto';
 import { UpdateTrailerDto } from './dto/update.trailer.dto';
 import { Trailer } from './trailers.model';

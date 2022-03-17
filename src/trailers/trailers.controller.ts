@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { FormDataRequest } from 'nestjs-form-data';
-import { Auth } from 'src/auth/auth.decorator';
+import { Auth } from '../auth/auth.decorator';
 import { UpdateTrailerDto } from './dto/update.trailer.dto';
 import { Trailer } from './trailers.model';
 import { TrailersService } from './trailers.service';

@@ -5,7 +5,7 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { Movie } from 'src/movies/movies.model';
+import { Movie } from '../movies/movies.model';
 
 interface CastCreationAttrs {
   movieId: number;

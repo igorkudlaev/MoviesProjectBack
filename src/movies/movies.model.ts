@@ -1,7 +1,7 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-import { Cast } from 'src/cast/cast.model';
-import { Comment } from 'src/comments/comments.model';
-import { Trailer } from 'src/trailers/trailers.model';
+import { Cast } from '../cast/cast.model';
+import { Comment } from '../comments/comments.model';
+import { Trailer } from '../trailers/trailers.model';
 
 interface MovieCreationAttrs {
   title: string;
