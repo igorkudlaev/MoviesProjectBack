@@ -1,11 +1,11 @@
 import { Catch, HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Cast } from 'src/cast/cast.model';
-import { CastService } from 'src/cast/cast.service';
-import { StorageService } from 'src/storage/storage.service';
-import { Trailer } from 'src/trailers/trailers.model';
-import { TrailersService } from 'src/trailers/trailers.service';
-import { HttpExceptionHandler } from 'src/utils/http.exception.handler';
+import { Cast } from '../cast/cast.model';
+import { CastService } from '../cast/cast.service';
+import { StorageService } from '../storage/storage.service';
+import { Trailer } from '../trailers/trailers.model';
+import { TrailersService } from '../trailers/trailers.service';
+import { HttpExceptionHandler } from '../utils/http.exception.handler';
 import { CreateMovieDto } from './dto/create.movie.dto';
 import { MovieDto } from './dto/movie.dto';
 import { MovieInfoDto } from './dto/movie.info.dto';

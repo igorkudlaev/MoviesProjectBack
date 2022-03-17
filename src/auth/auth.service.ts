@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import * as bcrypt from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/users.model';
+import { User } from '../users/users.model';
 import { TokensDto } from './dto/tokens.dto';
-import CreateUserDto from 'src/users/dto/create.user.dto';
+import CreateUserDto from '../users/dto/create.user.dto';
 import { UserDto } from './dto/user.dto';
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Redis } from 'ioredis';

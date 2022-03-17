@@ -9,20 +9,20 @@ import {
   Post,
   Request,
 } from '@nestjs/common';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
-import { CommentsService } from 'src/comments/comments.service';
+import { ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { CommentsService } from '../comments/comments.service';
 import { MovieDto } from './dto/movie.dto';
 import { MoviesService } from './movies.service';
-import { Comment } from 'src/comments/comments.model';
-import { Auth } from 'src/auth/auth.decorator';
+import { Comment } from '../comments/comments.model';
+import { Auth } from '../auth/auth.decorator';
 import { CreateCommentDto } from './dto/create.comment.dto';
 import { CreateMovieDto } from './dto/create.movie.dto';
 import { FormDataRequest } from 'nestjs-form-data';
 import { MovieInfoDto } from './dto/movie.info.dto';
-import { CastService } from 'src/cast/cast.service';
-import { Cast } from 'src/cast/cast.model';
-import { Trailer } from 'src/trailers/trailers.model';
-import { TrailersService } from 'src/trailers/trailers.service';
+import { CastService } from '../cast/cast.service';
+import { Cast } from '../cast/cast.model';
+import { Trailer } from '../trailers/trailers.model';
+import { TrailersService } from '../trailers/trailers.service';
 import { CreateMovieBody } from './decorators/create.movie.body';
 import { CreateTrailerDto } from './dto/create.trailer.dto';
 import { CreateTrailerBody } from './decorators/create.trailer.body';
