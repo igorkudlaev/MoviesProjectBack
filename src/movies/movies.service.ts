@@ -1,8 +1,7 @@
-import { Catch, HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Cast } from '../cast/cast.model';
 import { CastService } from '../cast/cast.service';
-import { StorageService } from '../storage/storage.service';
 import { Trailer } from '../trailers/trailers.model';
 import { TrailersService } from '../trailers/trailers.service';
 import { HttpExceptionHandler } from '../utils/http.exception.handler';
@@ -10,12 +9,14 @@ import { CreateMovieDto } from './dto/create.movie.dto';
 import { MovieDto } from './dto/movie.dto';
 import { MovieInfoDto } from './dto/movie.info.dto';
 import { Movie } from './movies.model';
+import { Storage } from 'src/storage/storage.decorator';
+import { IStorage } from 'src/storage/types/storage.interface';
 
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectModel(Movie) private moviesRepository: typeof Movie,
-    private storageService: StorageService,
+    @Storage('movies') private storageService: IStorage,
     private castService: CastService,
     private trailersService: TrailersService,
   ) {}

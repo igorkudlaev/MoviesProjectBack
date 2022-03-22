@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { StorageService } from '../storage/storage.service';
+import { Storage } from 'src/storage/storage.decorator';
+import { IStorage } from 'src/storage/types/storage.interface';
 import { HttpExceptionHandler } from '../utils/http.exception.handler';
 import { CreateTrailerDto } from './dto/create.trailer.dto';
 import { UpdateTrailerDto } from './dto/update.trailer.dto';
@@ -10,7 +11,7 @@ import { Trailer } from './trailers.model';
 export class TrailersService {
   constructor(
     @InjectModel(Trailer) private trailersRepository: typeof Trailer,
-    private storageService: StorageService,
+    @Storage('movies') private storageService: IStorage,
   ) {}
   async bulkCreate(trailers: CreateTrailerDto[]) {
     const uploadedTrailers = await Promise.all(

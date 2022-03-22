@@ -1,22 +1,21 @@
 import { DynamicModule, Global, Module } from '@nestjs/common';
-import { Config } from './config';
-import { GCSOptions } from './constants';
-import { StorageService } from './storage.service';
+import { StorageConfig } from './config';
+import { createStorageProviders } from './storage.provider';
 
-@Global()
 @Module({})
+@Global()
 export class StorageModule {
-  static config(storageOptions: Config): DynamicModule {
+  static forRoot(storageOptions: StorageConfig): DynamicModule {
     return {
       module: StorageModule,
       providers: [
         {
-          provide: GCSOptions,
+          provide: StorageConfig,
           useValue: storageOptions,
         },
-        StorageService,
+        ...createStorageProviders(),
       ],
-      exports: [StorageService],
+      exports: [...createStorageProviders()],
     };
   }
 }

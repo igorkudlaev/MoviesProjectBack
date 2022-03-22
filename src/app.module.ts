@@ -35,9 +35,15 @@ import { StorageModule } from './storage/storage.module';
     CastModule,
     CommentsModule,
     TrailersModule,
-    StorageModule.config({
-      keyFilename: process.env.GOOGLE_API_KEY_PATH,
-      bucketName: 'movies-project',
+    StorageModule.forRoot({
+      type: 'yandex',
+      s3config: {
+        endpoint: 'https://storage.yandexcloud.net',
+        credentials: {
+          accessKeyId: process.env.YANDEX_ACCESS_KEY,
+          secretAccessKey: process.env.YANDEX_SECRET_ACCESS_KEY,
+        },
+      },
     }),
   ],
 })
