@@ -6,7 +6,7 @@ import { Trailer } from '../trailers/trailers.model';
 interface MovieCreationAttrs {
   title: string;
   posterUrl: string;
-  year: number;
+  year: string;
   duration: string;
   rating: string;
 }
@@ -33,8 +33,8 @@ export class Movie extends Model<Movie, MovieCreationAttrs> {
   })
   posterUrl: string;
 
-  @Column({ type: DataType.INTEGER, allowNull: false })
-  year: number;
+  @Column({ type: DataType.STRING, allowNull: false })
+  year: string;
 
   @Column({
     type: DataType.STRING,

@@ -26,6 +26,8 @@ import { TrailersService } from '../trailers/trailers.service';
 import { CreateMovieBody } from './decorators/create.movie.body';
 import { CreateTrailerDto } from './dto/create.trailer.dto';
 import { CreateTrailerBody } from './decorators/create.trailer.body';
+import { MoviesUploaderService } from './movies.uploader.service';
+import { MoviesUploaderCredentialsDto } from './dto/movies.uploader.credentials.dto';
 
 @ApiTags('Movies')
 @Controller('movies')
@@ -35,12 +37,18 @@ export class MoviesController {
     private commentsService: CommentsService,
     private castService: CastService,
     private trailersService: TrailersService,
+    private moviesUploaderService: MoviesUploaderService,
   ) {}
 
   @Auth()
   @Get()
   async getAll(): Promise<MovieDto[]> {
     return this.moviesService.findAll();
+  }
+
+  @Post('seed')
+  async seed(@Body() credentials: MoviesUploaderCredentialsDto) {
+    return this.moviesUploaderService.seed(credentials);
   }
 
   @CreateMovieBody()

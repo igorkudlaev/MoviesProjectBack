@@ -7,9 +7,12 @@ import { CommentsModule } from 'src/comments/comments.module';
 import { CastModule } from 'src/cast/cast.module';
 import { FileSystemStoredFile, NestjsFormDataModule } from 'nestjs-form-data';
 import { TrailersModule } from 'src/trailers/trailers.module';
+import { HttpModule } from '@nestjs/axios';
+import { MoviesUploaderService } from './movies.uploader.service';
 
 @Module({
   imports: [
+    HttpModule,
     SequelizeModule.forFeature([Movie]),
     CommentsModule,
     CastModule,
@@ -19,7 +22,7 @@ import { TrailersModule } from 'src/trailers/trailers.module';
       fileSystemStoragePath: 'tmp/uploads',
     }),
   ],
-  providers: [MoviesService],
+  providers: [MoviesService, MoviesUploaderService],
   controllers: [MoviesController],
 })
 export class MoviesModule {}
