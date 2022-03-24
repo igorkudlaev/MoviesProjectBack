@@ -10,6 +10,7 @@ import { Movie } from '../movies/movies.model';
 interface TrailerCreationAttrs {
   movieId: number;
   url: string;
+  preview: string;
 }
 
 @Table({ tableName: 'trailers', createdAt: false, updatedAt: false })

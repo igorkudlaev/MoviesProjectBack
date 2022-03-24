@@ -7,12 +7,14 @@ import { AxiosResponse } from 'axios';
 import { MoviesUploaderResponseDto } from './dto/movies.uploader.response.dto';
 import { InjectModel } from '@nestjs/sequelize';
 import { Movie } from './movies.model';
+import { CastService } from 'src/cast/cast.service';
 
 @Injectable()
 export class MoviesUploaderService {
   constructor(
     @InjectModel(Movie) private moviesRepository: typeof Movie,
     private httpService: HttpService,
+    private castService: CastService,
   ) {}
 
   private async auth(
@@ -31,7 +33,7 @@ export class MoviesUploaderService {
     return firstValueFrom(observable);
   }
 
-  async download(
+  async getMovie(
     credentials: MoviesUploaderCredentialsDto,
   ): Promise<MoviesUploaderResponseDto[]> {
     const { data } = await this.auth(credentials);
@@ -49,11 +51,35 @@ export class MoviesUploaderService {
     return lastValueFrom(obesrvable);
   }
 
-  async seed(credentials: MoviesUploaderCredentialsDto) {
-    const movies = await this.download(credentials);
-    console.log(movies);
+  async getCast(
+    credentials: MoviesUploaderCredentialsDto,
+    id: number,
+  ): Promise<string[]> {
+    const { data } = await this.auth(credentials);
+    const obesrvable = this.httpService
+      .get<string[]>(`https://sarzhevsky.com//movies-api/Movies/${id}/Cast`, {
+        headers: {
+          Authorization: 'Bearer ' + data.access_token,
+        },
+      })
+      .pipe(map(({ data }) => data));
 
-    return this.moviesRepository.bulkCreate(
+    return lastValueFrom(obesrvable);
+  }
+
+  async seed(credentials: MoviesUploaderCredentialsDto) {
+    const movies = await this.getMovie(credentials);
+    const casts = await Promise.all(
+      movies.map(async (movie) => {
+        const cast = await this.getCast(credentials, movie.id);
+        return cast.map((cast) => ({
+          name: cast,
+          movieId: movie.id,
+        }));
+      }),
+    );
+
+    this.moviesRepository.bulkCreate(
       movies.map((value) => {
         return {
           ...value,
@@ -61,5 +87,6 @@ export class MoviesUploaderService {
         };
       }),
     );
+    await this.castService.create(casts.flat());
   }
 }

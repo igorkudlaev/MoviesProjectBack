@@ -9,6 +9,7 @@ import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import AuthServiceGoogle from './auth.service.google';
 import PasswordGenerator from './password.generator';
+import { OAuth2Client } from 'google-auth-library';
 
 @Module({
   imports: [
@@ -27,6 +28,10 @@ import PasswordGenerator from './password.generator';
     JwtStrategy,
     AuthServiceGoogle,
     PasswordGenerator,
+    {
+      provide: OAuth2Client,
+      useValue: new OAuth2Client(process.env.GOOGLE_CLIENT_ID),
+    },
   ],
   controllers: [AuthController],
 })

@@ -27,6 +27,15 @@ export class TrailersService {
     );
     return this.trailersRepository.bulkCreate(uploadedTrailers);
   }
+
+  async create(trailer: CreateTrailerDto): Promise<Trailer> {
+    const savedUrl = await this.storageService.uploadFile(trailer.preview.path);
+    return this.trailersRepository.create({
+      ...trailer,
+      preview: savedUrl,
+    });
+  }
+
   async deleteByMovieId(movieId: number): Promise<number> {
     const trailers = await this.findByMovieId(movieId);
     trailers.forEach(async (trailer) => {

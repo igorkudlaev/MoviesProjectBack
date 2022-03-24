@@ -8,14 +8,12 @@ import PasswordGenerator from './password.generator';
 
 @Injectable()
 export default class AuthServiceGoogle {
-  private client: OAuth2Client;
   constructor(
     private authService: AuthService,
     private usersService: UsersService,
     private passwordGenerator: PasswordGenerator,
-  ) {
-    this.client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-  }
+    private client: OAuth2Client,
+  ) {}
 
   async auth(googleTokenDto: GoogleTokenDto): Promise<TokensDto> {
     const ticket = await this.verify(googleTokenDto);

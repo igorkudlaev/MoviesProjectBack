@@ -46,7 +46,7 @@ export class MoviesController {
     return this.moviesService.findAll();
   }
 
-  @Post('seed')
+  @Post('/seed')
   async seed(@Body() credentials: MoviesUploaderCredentialsDto) {
     return this.moviesUploaderService.seed(credentials);
   }
@@ -103,6 +103,18 @@ export class MoviesController {
   @Get('/:id/trailers')
   async getTrailers(@Param('id') movieId: number): Promise<Trailer[]> {
     return this.trailersService.findByMovieId(movieId);
+  }
+
+  @Post('/:id/trailers')
+  @FormDataRequest()
+  async addTrailer(
+    @Param('id') movieId: number,
+    @Body() trailerDto: CreateTrailerDto,
+  ): Promise<Trailer> {
+    return this.trailersService.create({
+      movieId,
+      ...trailerDto,
+    });
   }
 
   @CreateTrailerBody()
