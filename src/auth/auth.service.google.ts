@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { LoginTicket, OAuth2Client } from 'google-auth-library';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 import { AuthService } from './auth.service';
 import GoogleTokenDto from './dto/google.token.dto';
 import { TokensDto } from './dto/tokens.dto';
@@ -25,7 +25,7 @@ export default class AuthServiceGoogle {
       return tokens;
     }
     const tokens = this.authService.register({
-      username: ticket.getAttributes().payload.email,
+      username: email,
       password: this.passwordGenerator.generatePassword(),
     });
     return tokens;
